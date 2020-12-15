@@ -1,21 +1,31 @@
 
+import * as PIXI from 'pixi.js';
+import { STAKES } from '../constants';
 
-function StakeButton() {
+export default class StakeButton extends PIXI.Container {
+
+    constructor(index,callback) {
+        super();
+
+        let box = new PIXI.Sprite(resources.box2.texture);
+        this.addChild(box);
+        
+        let value = new PIXI.Text(STAKES[index],{
+            fontFamily: "\"Comic Sans MS\", cursive, sans-serif",
+            fontWeight: "bolder",
+            fontSize: 24,
+            fill : 0xffffff,
+            align : 'center',
+        });
+        value.x = 40;
+        value.y = 10;
+        this.addChild(value);
+
+        this.interactive = true;
+        this.on('click', (event) => {
+            callback(index);
+        });
+
+    }
 
 }
-StakeButton.prototype = PIXI.Sprite.prototype;
-// StakeButton = {...PIXI.Sprite};
-for ( var a in PIXI.Sprite ) {
-    StakeButton[a] = PIXI.Sprite[a];
-}
-
-
-console.log('PIXI.Sprite.prototype:',PIXI.Sprite.prototype);
-console.log('PIXI.Sprite:',PIXI.Sprite);
-console.log('StakeButton.prototype:',StakeButton.prototype);
-console.log('StakeButton:',StakeButton);
-
-var s = new PIXI.Sprite();
-console.log('s.x:',s.x);
-var ss = new StakeButton();
-console.log('ss.x:',ss.x);

@@ -2,11 +2,12 @@
 import * as PIXI from 'pixi.js';
 import SlotController from './slots/slotsController';
 import { getResult } from './slots/utils';
+import StakeSelector from './slots/stakeSelector';
 
-let resources = PIXI.Loader.shared.resources;
+window.resources = PIXI.Loader.shared.resources;
 
 //Create a Pixi Application
-let app = new PIXI.Application({ 
+let app = new PIXI.Application({
   width: 900,         // default: 800
   // height: 256,        // default: 600
   antialias: true,    // default: false
@@ -28,11 +29,13 @@ const resourceList = {
   reelBack: 'assets/img/table/reelback.png',
   reelFront: 'assets/img/table/reelfront.png',
   spinButton: 'assets/img/spin button/basic.png',
+  box: 'assets/img/box.png',
+  box2: 'assets/img/box2.png',
 }
 
 //load an image and run the `setup` function when it's done
 for ( let a in resourceList ) {
-  PIXI.Loader.shared.add(a, resourceList[a])
+  PIXI.Loader.shared.add(a, resourceList[a]);
 }
 PIXI.Loader.shared.load(setup);
 
@@ -74,6 +77,10 @@ function setup() {
   spinButtonContainer.x = 330;
   spinButtonContainer.y = 510;
 
+  let stakeSelector = new StakeSelector();
+  app.stage.addChild(stakeSelector);
+  stakeSelector.x = 600;
+  stakeSelector.y = 545;
 
   let slotContoller = new SlotController();
 
