@@ -3,6 +3,7 @@
 import * as PIXI from 'pixi.js';
 import StakeButton from './stakeButton';
 import { STAKES } from '../constants';
+import ValueDisplay from './valueDisplay';
 
 
 export default class StakeSelector extends PIXI.Container {
@@ -17,35 +18,14 @@ export default class StakeSelector extends PIXI.Container {
 
         this.stakesButtons = [];
         this.index = 0;
+        this.stake = STAKES[this.index];
         this.zIndex = 5;
-        
-        let box = new PIXI.Sprite(resources.box.texture);
-        this.addChild(box);
+
         this.interactive = true;
         this.on('click', this.displayStakes);
-        
-        
-        let headerText = new PIXI.Text('STAKE',{
-            fontFamily: "\"Comic Sans MS\", cursive, sans-serif",
-            fontWeight: "bolder",
-            fontSize: 12,
-            fill : 0xffffff,
-            align : 'center',
-        });
-        headerText.x = 35;
-        headerText.y = 5;
-        this.addChild(headerText);
-        
-        this.valueText = new PIXI.Text(STAKES[this.index],{
-            fontFamily: "\"Comic Sans MS\", cursive, sans-serif",
-            fontWeight: "bolder",
-            fontSize: 24,
-            fill : 0xffffff,
-            align : 'center',
-        });
-        this.valueText.x = 40;
-        this.valueText.y = 15;
-        this.addChild(this.valueText);
+
+        this.valueDisplay = new ValueDisplay('STAKE',this.stake);
+        this.addChild(this.valueDisplay);
     
         for ( var i = 0; i < STAKES.length; i++ ) {
             let s = new StakeButton(i,this.onButtonClick);
@@ -59,7 +39,6 @@ export default class StakeSelector extends PIXI.Container {
     }
 
     onButtonClick(index) {
-        console.log('onButtonClick('+index+')');
         this.index = index;
         this.updateValue();
         this.hideStakes();
@@ -67,7 +46,6 @@ export default class StakeSelector extends PIXI.Container {
     }
 
     displayStakes() {
-        console.log(' - displayStakes');
         this.interactive = false;
         for ( var i = 0; i < this.stakesButtons.length; i++ ) {
             this.stakesButtons[i].visible = true;
@@ -82,8 +60,8 @@ export default class StakeSelector extends PIXI.Container {
     }
 
     updateValue() {
-        this.valueText.text = STAKES[this.index];
         this.stake = STAKES[this.index];
+        this.valueDisplay.setValue(this.stake);
     }
 
 }

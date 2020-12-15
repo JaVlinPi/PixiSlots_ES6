@@ -10,16 +10,16 @@ export default class StakeButton extends PIXI.Container {
         let box = new PIXI.Sprite(resources.box2.texture);
         this.addChild(box);
         
-        let value = new PIXI.Text(STAKES[index],{
+        let valueText = new PIXI.Text(STAKES[index],{
             fontFamily: "\"Comic Sans MS\", cursive, sans-serif",
             fontWeight: "bolder",
             fontSize: 24,
             fill : 0xffffff,
             align : 'center',
         });
-        value.x = 40;
-        value.y = 10;
-        this.addChild(value);
+        valueText.x = 40;
+        valueText.y = 10;
+        this.addChild(valueText);
 
         this.interactive = true;
         this.on('click', (event) => {

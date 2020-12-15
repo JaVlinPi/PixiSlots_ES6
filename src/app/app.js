@@ -3,6 +3,10 @@ import * as PIXI from 'pixi.js';
 import SlotController from './slots/slotsController';
 import { getResult } from './slots/utils';
 import StakeSelector from './slots/stakeSelector';
+import ValueDisplay from './slots/valueDisplay';
+import { START_FUNDS } from './constants';
+
+let funds = START_FUNDS;
 
 window.resources = PIXI.Loader.shared.resources;
 
@@ -82,6 +86,13 @@ function setup() {
   stakeSelector.x = 600;
   stakeSelector.y = 545;
 
+  let balanceDisplay = new ValueDisplay('BALANCE',funds);
+  balanceDisplay.zIndex = 5;
+  app.stage.addChild(balanceDisplay);
+  balanceDisplay.x = 200;
+  balanceDisplay.y = 545;
+
+
   let slotContoller = new SlotController();
 
   spinButtonContainer.on('click', (event) => {
@@ -91,6 +102,8 @@ function setup() {
       slotContoller.stopSpin(results);
     }
     else {
+      funds -= stakeSelector.stake;
+      balanceDisplay.setValue(funds);
       slotContoller.spin();
       text.text = 'STOP';
     }

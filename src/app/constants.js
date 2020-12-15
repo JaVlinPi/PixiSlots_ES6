@@ -54,3 +54,5 @@ export const WIN_LINES = [
     [0,1,2,3,3],
     [3,2,1,0,0],
 ]
+
+export const START_FUNDS = 1000;
