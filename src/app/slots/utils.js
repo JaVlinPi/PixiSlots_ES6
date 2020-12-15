@@ -32,6 +32,7 @@ export function getResult() {
     return {
         reelPositions: reelPositions,
         wins: wins,
+        winAmount: Math.round((wins.length*0.02)*100)*0.01,
     };
 }
 

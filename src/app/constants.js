@@ -24,9 +24,9 @@ export const STAKES = [
 // 'apricot'
 // 'wild',
 export const REEL_SYMBOL_DATA = [
-    ['wild',  'wild',  'wild',  'wild',   'wild',   'wild',     'wild',    'wild',      'wild',       'wild'],
-    ['wild',  'wild',  'wild',  'wild',   'wild',   'wild',     'wild',    'wild',      'wild',       'wild'],
-    ['wild',  'wild',  'wild',  'wild',   'wild',   'wild',     'wild',    'wild',      'wild',       'wild'],
+    // ['wild',  'wild',  'wild',  'wild',   'wild',   'wild',     'wild',    'wild',      'wild',       'wild'],
+    // ['wild',  'wild',  'wild',  'wild',   'wild',   'wild',     'wild',    'wild',      'wild',       'wild'],
+    // ['wild',  'wild',  'wild',  'wild',   'wild',   'wild',     'wild',    'wild',      'wild',       'wild'],
     // ['banana',  'coconut',  'apricot',  'banana',   'coconut',   'apricot',     'pineapple',    'coconut',      'banana',       'wild'],
     // ['banana',  'coconut',  'apricot',  'banana',   'coconut',   'apricot',     'pineapple',    'coconut',      'banana',       'wild'],
     // ['banana',  'coconut',  'apricot',  'banana',   'coconut',   'apricot',     'pineapple',    'coconut',      'banana',       'wild'],
