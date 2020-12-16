@@ -104,19 +104,19 @@ function setup() {
   spinButtonContainer.on('click', (event) => {
     if ( slotContoller.isSpinning() ) {
       text.text = 'SPIN';
-      let results = getResult();
-      console.log('results:',results);
-      funds += results.winAmount;
-      funds = Math.round(funds*100)*0.01;
-      funds = ''+funds;
-      let i = funds.indexOf('.');
-      if ( i != -1 ) {
-        funds = funds.slice(0,i+3);
-      }
-      funds = parseFloat(funds);
-      winDiplay.setValue(results.winAmount);
-      balanceDisplay.setValue(funds);
-      slotContoller.stopSpin(results);
+      getResult((results)=>{
+          funds += parseFloat(results.winAmount);
+          funds = Math.round(funds*100)*0.01;
+          funds = ''+funds;
+          let i = funds.indexOf('.');
+          if ( i != -1 ) {
+              funds = funds.slice(0,i+3);
+          }
+          funds = parseFloat(funds);
+          winDiplay.setValue(results.winAmount);
+          balanceDisplay.setValue(funds);
+          slotContoller.stopSpin(results);
+      });
     }
     else {
       funds -= stakeSelector.stake;

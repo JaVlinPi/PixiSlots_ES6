@@ -1,6 +1,6 @@
 
-export const NUM_OF_REELS = 5;
-export const NUM_OF_ROWS = 4;
+export const NUM_OF_REELS = 3;
+export const NUM_OF_ROWS = 3;
 // NUM_OF_ROWS is the actual number of rows, however we need an extra symbol to cover when we are between 2 positions
 export const VISIBLE_ROWS = NUM_OF_ROWS+1;
 export const REELS_X = 95;
@@ -23,6 +23,11 @@ export const STAKES = [
 // 'pineapple',
 // 'apricot'
 // 'wild',
+export const SYMBOLS_TYPES = [
+    'banana',
+    'coconut',
+    'pineapple',
+]
 export const REEL_SYMBOL_DATA = [
     // ['wild',  'wild',  'wild',  'wild',   'wild',   'wild',     'wild',    'wild',      'wild',       'wild'],
     // ['wild',  'wild',  'wild',  'wild',   'wild',   'wild',     'wild',    'wild',      'wild',       'wild'],
@@ -34,25 +39,36 @@ export const REEL_SYMBOL_DATA = [
     ['banana',  'coconut',  'wild',     'banana',   'wild',      'apricot',     'pineapple',    'coconut',      'banana',       'wild'],
     ['apricot', 'banana',   'coconut',  'banana',   'apricot',   'coconut',     'banana',       'pineapple',    'coconut',      'pineapple'],
     ['coconut', 'banana',   'apricot',  'banana',   'coconut',   'apricot',     'pineapple',    'coconut',      'pineapple',    'wild'],
-    ['apricot', 'coconut',  'banana',   'wild',     'coconut',   'pineapple',   'apricot',      'coconut',      'banana',       'pineapple'],
-    ['banana',  'coconut',  'apricot',  'wild',     'coconut',   'apricot',     'pineapple',    'coconut',      'wild',         'pineapple'],
+    // ['apricot', 'coconut',  'banana',   'wild',     'coconut',   'pineapple',   'apricot',      'coconut',      'banana',       'pineapple'],
+    // ['banana',  'coconut',  'apricot',  'wild',     'coconut',   'apricot',     'pineapple',    'coconut',      'wild',         'pineapple'],
 ];
 
 export const WIN_LINE_DURATION = 2000; // in milliseconds
 export const MIN_WIN_LENGTH = 3;
+// export const WIN_LINES = [
+//     [0,0,0,0,0],
+//     [1,1,1,1,1],
+//     [2,2,2,2,2],
+//     [3,3,3,3,3],
+//     [0,1,2,1,0],
+//     [1,2,3,2,1],
+//     [3,2,1,2,3],
+//     [2,1,0,1,2],
+//     [0,0,1,2,3],
+//     [3,3,2,1,0],
+//     [0,1,2,3,3],
+//     [3,2,1,0,0],
+// ];
 export const WIN_LINES = [
-    [0,0,0,0,0],
-    [1,1,1,1,1],
-    [2,2,2,2,2],
-    [3,3,3,3,3],
-    [0,1,2,1,0],
-    [1,2,3,2,1],
-    [3,2,1,2,3],
-    [2,1,0,1,2],
-    [0,0,1,2,3],
-    [3,3,2,1,0],
-    [0,1,2,3,3],
-    [3,2,1,0,0],
-]
+    [0,0,0],
+    [1,1,1],
+    [2,2,2],
+    [0,1,2],
+    [2,1,0],
+    [0,0,1],
+    [1,1,2],
+    [1,1,0],
+    [2,2,1],
+];
 
 export const START_FUNDS = 1000;

@@ -20,7 +20,7 @@ import { getSymbolsAtPosition } from "./utils";
 
 
 let reels = [];
-let reelPositions = [0,0,0,0,0];
+let reelPositions = [0,0,0];
 let currSymbols = [];
 
 // spin vars
@@ -114,17 +114,15 @@ export default class SlotController {
         _isSpinning = false;
         window.cancelAnimationFrame(spinId);
         if ( result ) {
-            let resultPositions = result.reelPositions;
             wins = result.wins;
             isResultSpinning = true;
             // create new list of symbols, current + result
-            for ( var i = 0; i < Math.min(resultPositions.length,reels.length,NUM_OF_REELS); i++ ) {
-                endSpinSymbols[i] = currSymbols[i].concat(getSymbolsAtPosition(i,resultPositions[i]));
+            for ( var i = 0; i < Math.min(result.symbols.length,reels.length,NUM_OF_REELS); i++ ) {
+                endSpinSymbols[i] = currSymbols[i].concat(result.symbols[i]);
                 endSpinPositions[i] = reelPositions[i]%1;
             }
             // start new frame for showing new symbols
             spinId = window.requestAnimationFrame(this.doStopToResult);
-            reelPositions = resultPositions.concat();
         }
     }
 
@@ -132,12 +130,12 @@ export default class SlotController {
         let msPassed = e - lastSpinUpdateTime;
         let endSpinComplete = true;
         for ( var i = 0; i < endSpinPositions.length; i++ ) {
-            if ( endSpinPositions[i] < endSpinSymbols[i].length-NUM_OF_ROWS-1 ) {
+            if ( endSpinPositions[i] < endSpinSymbols[i].length-NUM_OF_ROWS ) {
                 endSpinPositions[i] += msPassed/1000*SPIN_SPEED;
                 endSpinComplete = false;
             }
             else {
-                endSpinPositions[i] = endSpinSymbols[i].length-NUM_OF_ROWS-1;
+                endSpinPositions[i] = endSpinSymbols[i].length-NUM_OF_ROWS;
             }
             reels[i].display(endSpinSymbols[i],endSpinPositions[i]);
         }
