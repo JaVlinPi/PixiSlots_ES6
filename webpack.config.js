@@ -81,6 +81,13 @@ module.exports = (env) => {
             name: 'assets/img/[name].[ext]'
           }
         },
+        {
+          test: /\.(wav?g)$/,
+          loader: 'file-loader',
+          query:{
+            name: 'assets/sounds/[name].[ext]'
+          }
+        },
       ]
 
     },

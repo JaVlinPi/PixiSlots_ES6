@@ -2,7 +2,7 @@
 
 import * as PIXI from 'pixi.js';
 import StakeButton from './stakeButton';
-import { STAKES } from '../constants';
+import { STAKES, SOUNDS } from '../constants';
 import ValueDisplay from './valueDisplay';
 
 
@@ -46,6 +46,7 @@ export default class StakeSelector extends PIXI.Container {
     }
 
     displayStakes() {
+        SOUNDS.drum1.play();
         this.interactive = false;
         for ( var i = 0; i < this.stakesButtons.length; i++ ) {
             this.stakesButtons[i].visible = true;
@@ -53,6 +54,7 @@ export default class StakeSelector extends PIXI.Container {
     }
 
     hideStakes() {
+        SOUNDS.drum2.play();
         this.interactive = true;
         for ( var i = 0; i < this.stakesButtons.length; i++ ) {
             this.stakesButtons[i].visible = false;

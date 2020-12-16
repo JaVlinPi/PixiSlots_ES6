@@ -76,3 +76,10 @@ export const WIN_LINES = [
 ];
 
 export const START_FUNDS = 1000;
+
+export const SOUNDS = {
+    spin: new Audio('assets/sounds/spin.wav'),
+    drum1: new Audio('assets/sounds/drum1.wav'),
+    drum2: new Audio('assets/sounds/drum2.wav'),
+    drum3: new Audio('assets/sounds/drum3.wav'),
+}

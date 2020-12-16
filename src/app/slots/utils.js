@@ -83,3 +83,7 @@ export function getWins(symbols) {
     return wins;
 }
 
+export function stopSound(sound) {
+    sound.pause();
+    sound.currentTime = 0;
+}

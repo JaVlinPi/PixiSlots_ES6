@@ -4,7 +4,7 @@ import SlotController from './slots/slotsController';
 import { getResult } from './slots/utils';
 import StakeSelector from './slots/stakeSelector';
 import ValueDisplay from './slots/valueDisplay';
-import { START_FUNDS } from './constants';
+import { START_FUNDS, SOUNDS } from './constants';
 
 let funds = START_FUNDS;
 
@@ -138,6 +138,8 @@ function setup() {
       });
     }
     else {
+      SOUNDS.spin.loop = true;
+      SOUNDS.spin.play();
       funds -= stakeSelector.stake;
       winDiplay.setValue('');
       balanceDisplay.setValue(funds);

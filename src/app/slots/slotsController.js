@@ -13,10 +13,11 @@ import {
     REEL_SYMBOL_DATA,
     NUM_OF_ROWS,
     WIN_LINE_DURATION,
-    WIN_LINES
+    WIN_LINES,
+    SOUNDS
 } from "../constants";
 import Reel from "./reel";
-import { getSymbolsAtPosition } from "./utils";
+import { getSymbolsAtPosition, stopSound } from "./utils";
 
 
 let reels = [];
@@ -145,6 +146,7 @@ export default class SlotController {
             spinId = window.requestAnimationFrame(this.doStopToResult);
         }
         else {
+            stopSound(SOUNDS.spin);
             isResultSpinning = false;
             if ( wins && wins.length ) {
                 this.showWins();
