@@ -20,6 +20,25 @@ let app = new PIXI.Application({
 });
 window.app = app;
 
+function handleWindowSize() {
+  if ( window.innerWidth > window.innerHeight ) {
+    app.stage.pivot.set(app.stage.width / 2, app.stage.height / 2);
+    app.stage.x = app.stage.width / 2;
+    app.stage.y = app.stage.height / 2;
+    app.stage.rotation = 0;
+    app.stage.width = 900;
+    app.stage.height = 600;
+  }
+  else {
+    app.stage.pivot.set(app.stage.height / 2, app.stage.width / 2);
+    app.stage.x = app.stage.height / 2;
+    app.stage.y = app.stage.width / 2;
+    app.stage.rotation = Math.PI / 2;
+    app.stage.width = 600;
+    app.stage.height = 900;
+  }
+}
+window.addEventListener("resize", handleWindowSize);
 
 //Add the canvas that Pixi automatically created for you to the HTML document
 document.body.appendChild(app.view);
@@ -126,6 +145,9 @@ function setup() {
       text.text = 'STOP';
     }
   });
+
+  handleWindowSize();
+  handleWindowSize();
   
 }
 

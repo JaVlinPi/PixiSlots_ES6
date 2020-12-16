@@ -38,6 +38,7 @@ export default class Reel {
             .drawRect(this.position.x, this.position.y, this.width, this.symbolHeight*(this.length-1))
             .endFill();
         this.container.x = this.position.x;
+        app.stage.addChild(this.container.mask);
 
     }
 
