@@ -69,6 +69,10 @@ export const WIN_LINES = [
     [1,1,2],
     [1,1,0],
     [2,2,1],
+    [0,0,1],
+    [1,1,2],
+    [1,1,0],
+    [2,2,1],
 ];
 
 export const START_FUNDS = 1000;
