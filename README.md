@@ -16,6 +16,6 @@ This is usually the more efficient way to handle reel display but that does depe
 
 ## Cover Note - Running the project
 
-To transpile the code run watchScript.bat, however this should not be required as the transpiled code has been committed.
-If you do with so transpile make sure you run 'npm i' in the project root to download all node modules needed.
-The transpiled code will appear in the 'dist' folder. Having a site set up to point to this folder will allow the game to be played.
+ - First install all node modules with 'npm i' in the projects root.
+ - Transpile the code by running watchScript.bat
+ - The transpiled code will appear in the 'dist' folder. Having a site set up to point to this folder will allow the game to be played.
