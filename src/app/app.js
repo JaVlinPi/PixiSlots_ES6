@@ -2,11 +2,11 @@
 import * as PIXI from 'pixi.js';
 import SlotController from './slots/slotsController';
 import { getResult } from './slots/utils';
-import StakeSelector from './slots/stakeSelector';
-import ValueDisplay from './slots/valueDisplay';
+import StakeSelector from './general/stakeSelector';
+import ValueDisplay from './general/valueDisplay';
 import { START_FUNDS, SOUNDS, LOW_QUALITY_STAGE_MAX } from './constants';
-import SpriteLoader from './slots/spriteLoader';
-import CustomSprite from './slots/customSprite';
+import SpriteLoader from './general/spriteLoader';
+import CustomSprite from './general/customSprite';
 import Reel from './slots/reel';
 import SpinButton from './slots/spinButton';
 
@@ -24,13 +24,16 @@ let app = new PIXI.Application({
 });
 window.app = app;
 
+// function for switching the quality of the spites used
 function setQuality(quality) {
   spriteLoader.switchQuality(quality)
   .then(()=>{
+    // We call this outside of spriteLoader as not all games will use reels, but all should be using CustomSprites
     Reel.redraw();
   });
 }
 
+// called on window resize. handles rotation and sprite quality change 
 function handleWindowSize() {
   if ( window.innerWidth > window.innerHeight ) {
     app.stage.pivot.set(app.stage.width / 2, app.stage.height / 2);
@@ -59,9 +62,10 @@ function handleWindowSize() {
 }
 window.addEventListener("resize", handleWindowSize);
 
-//Add the canvas that Pixi automatically created for you to the HTML document
+// Add the canvas that Pixi automatically created for you to the HTML document
 document.body.appendChild(app.view);
 
+// Block for loading sprites then calling setup() to set the game up
 let initQuality = Math.min(window.innerWidth,window.innerHeight) < LOW_QUALITY_STAGE_MAX ? 'low' : 'high';
 const spriteLoader = new SpriteLoader();
 spriteLoader.loadSprites({
@@ -78,8 +82,7 @@ spriteLoader.loadSprites({
 },initQuality).then(setup);
 
 
-//This `setup` function will run when the image has loaded
-let spinText;
+//This `setup` function will run when images has loaded
 function setup() {
   
   app.stage.sortableChildren = true;
@@ -120,6 +123,7 @@ function setup() {
 
   let slotContoller = new SlotController();
 
+  // Code for responding to the spin button click
   spinButton.on('click', (event) => {
     if ( slotContoller.isSpinning() ) {
       spinButton.setText('SPIN');
@@ -148,6 +152,8 @@ function setup() {
     }
   });
 
+  // Used to orientate the game once everything is set up.
+  // Not sure why a single redraw fails to achieve the correct results, but any additional calls produces the correct result
   handleWindowSize();
   handleWindowSize();
   

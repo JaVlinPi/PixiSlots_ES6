@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import CustomSprite from './customSprite';
+import CustomSprite from '../general/customSprite';
 
 export default class SpinButton extends PIXI.Container {
 

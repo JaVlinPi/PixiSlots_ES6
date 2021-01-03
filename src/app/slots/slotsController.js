@@ -17,7 +17,8 @@ import {
     SOUNDS
 } from "../constants";
 import Reel from "./reel";
-import { getSymbolsAtPosition, stopSound } from "./utils";
+import { getSymbolsAtPosition } from "./utils";
+import { stopSound } from '../general/utils';
 
 
 let reels = [];
@@ -74,6 +75,7 @@ export default class SlotController {
         this.showPositions(reelPositions);
     }
 
+    // shows the symbols at the positions on each reel based on the array provided
     showPositions(positions) {
         for ( var i = 0; i < Math.min(positions.length,reels.length,NUM_OF_REELS); i++ ) {
             let symbols = getSymbolsAtPosition(i,positions[i]);
@@ -127,6 +129,7 @@ export default class SlotController {
         }
     }
 
+    // frame function that animates the end of the spin into showing the results
     doStopToResult(e) {
         let msPassed = e - lastSpinUpdateTime;
         let endSpinComplete = true;
@@ -142,6 +145,7 @@ export default class SlotController {
         }
 
         lastSpinUpdateTime = e;
+        // request a new frame of animation if not complete, or start win display
         if ( !endSpinComplete && isResultSpinning ) {
             spinId = window.requestAnimationFrame(this.doStopToResult);
         }
@@ -154,11 +158,13 @@ export default class SlotController {
         }
     }
 
+    // starts the win line display process
     showWins() {
         currWinIndex = 0;
         this.showWinLine(wins[currWinIndex].lineId,wins[currWinIndex].length);
     }
     
+    // starts the animation for one particular win line
     showWinLine(lineId,length) {
         this.fadeAllSymbols();
         let winLine = WIN_LINES[lineId];

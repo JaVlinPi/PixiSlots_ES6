@@ -8,7 +8,7 @@ import {
     SYMBOLS_TYPES
 } from "../constants";
 
-
+// simple function for returning an array of symbols at a certain position on a reel. overflow is used for when we need 1 extra symbol as the position is not a whole number
 export function getSymbolsAtPosition(reel,position,overflow) {
     overflow = overflow == false ? false : true;
     let numOfSymbols = overflow ? VISIBLE_ROWS : NUM_OF_ROWS;
@@ -21,6 +21,7 @@ export function getSymbolsAtPosition(reel,position,overflow) {
     return returnArr;
 }
 
+// used to convert the data from docker into the data the system originally expect
 function convertResultsData(resultsXML) {
 
     let parser = new DOMParser();
@@ -49,6 +50,7 @@ function convertResultsData(resultsXML) {
     };
 }
 
+// gets the spin result from docker
 export function getResult(callback) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -61,6 +63,7 @@ export function getResult(callback) {
     xhttp.send('<Request balance="100.00" stake="1.20" />');
 }
 
+// finds the win lines in the 2d symbol array provided
 export function getWins(symbols) {
     let wins = [];
     for ( var i = 0; i < WIN_LINES.length; i++ ) {
@@ -81,9 +84,4 @@ export function getWins(symbols) {
         }
     }
     return wins;
-}
-
-export function stopSound(sound) {
-    sound.pause();
-    sound.currentTime = 0;
 }

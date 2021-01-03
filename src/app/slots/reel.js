@@ -1,7 +1,10 @@
 
 import * as PIXI from 'pixi.js';
-import { VISIBLE_ROWS } from '../constants';
-import CustomSprite from './customSprite';
+import {
+    REEL_WIDTH,
+    VISIBLE_ROWS
+} from '../constants';
+import CustomSprite from '../general/customSprite';
 
 // fade vars
 let fadeFilter = new PIXI.filters.ColorMatrixFilter();
@@ -29,8 +32,8 @@ export default class Reel {
         options = options || {};
         this.position = options.position || {x:0,y:0};
         this.length = options.length || VISIBLE_ROWS;
-        this.width = options.width || 100;
-        this.symbolHeight = options.symbolHeight || 100;
+        this.width = options.width || REEL_WIDTH;
+        this.symbolHeight = options.symbolHeight || REEL_WIDTH;
 
         // create symbols
         this.symbols = [];
@@ -53,6 +56,7 @@ export default class Reel {
 
     }
 
+    // Updates display with symbols provided. offset is a value from 0-1 that specifies how far the reel is past the symbols at index 0
     display (symbols,offset) {
         this.currentSymbols = symbols;
         this.currentOffset = offset;
@@ -64,20 +68,24 @@ export default class Reel {
         }
     }
 
+    // used to redraw current symbols at current positions. only useful for quality change atm
     redraw() {
         this.display(this.currentSymbols,this.currentOffset);
     }
 
+    // cause all symbols to be greyscaled
     fade() {
         for ( var i = 0; i < this.symbols.length; i++ ) {
             this.symbols[i].filters = [fadeFilter];
         }
     }
 
+    // used to apply any filter
     applyFilters(symbolIndex,filters) {
         this.symbols[symbolIndex].filters = filters;
     }
 
+    // clears all filters
     clearFilters() {
         for ( var i = 0; i < this.symbols.length; i++ ) {
             this.symbols[i].filters = null;
