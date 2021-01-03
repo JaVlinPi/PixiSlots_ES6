@@ -8,6 +8,7 @@ import { START_FUNDS, SOUNDS, LOW_QUALITY_STAGE_MAX } from './constants';
 import SpriteLoader from './slots/spriteLoader';
 import CustomSprite from './slots/customSprite';
 import Reel from './slots/reel';
+import SpinButton from './slots/spinButton';
 
 let funds = START_FUNDS;
 
@@ -94,26 +95,11 @@ function setup() {
   reelBack.width = reelFront.width = 900;
   reelBack.height = reelFront.height = 560;
 
-  let spinButtonContainer = new PIXI.Container();
-  spinButtonContainer.sortableChildren = true;
-  app.stage.addChild(spinButtonContainer);
-  let text = new PIXI.Text('SPIN',{
-    fontFamily: "\"Comic Sans MS\", cursive, sans-serif",
-    fontWeight: "bolder",
-    fontSize: 36,
-    fill : 0xffffff,
-    align : 'center'
-  });
-  spinButtonContainer.addChild(text);
-  text.x = 75;
-  text.y = 37;
-  text.zIndex = 2;
-  let spinButton = new CustomSprite('spinButton');
-  spinButtonContainer.addChild(spinButton);
-  spinButtonContainer.zIndex = 2;
-  spinButtonContainer.interactive = true;
-  spinButtonContainer.x = 330;
-  spinButtonContainer.y = 510;
+  let spinButton = new SpinButton();
+  app.stage.addChild(spinButton);
+  spinButton.zIndex = 2;
+  spinButton.x = 330;
+  spinButton.y = 510;
 
   let stakeSelector = new StakeSelector();
   app.stage.addChild(stakeSelector);
@@ -132,12 +118,11 @@ function setup() {
   winDiplay.x = 70;
   winDiplay.y = 545;
 
-
   let slotContoller = new SlotController();
 
-  spinButtonContainer.on('click', (event) => {
+  spinButton.on('click', (event) => {
     if ( slotContoller.isSpinning() ) {
-      text.text = 'SPIN';
+      spinButton.setText('SPIN');
       getResult((results)=>{
           funds += parseFloat(results.winAmount);
           funds = Math.round(funds*100)*0.01;
@@ -159,7 +144,7 @@ function setup() {
       winDiplay.setValue('');
       balanceDisplay.setValue(funds);
       slotContoller.spin();
-      text.text = 'STOP';
+      spinButton.setText('STOP');
     }
   });
 
