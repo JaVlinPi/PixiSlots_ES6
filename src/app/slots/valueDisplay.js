@@ -1,13 +1,14 @@
 
 import * as PIXI from 'pixi.js';
 import { STAKES } from '../constants';
+import CustomSprite from './customSprite';
 
 export default class ValueDisplay extends PIXI.Container {
 
     constructor(header,value) {
         super();
 
-        let box = new PIXI.Sprite(resources.box.texture);
+        let box = new CustomSprite('box');
         this.addChild(box);
         
         let headerText = new PIXI.Text(header,{

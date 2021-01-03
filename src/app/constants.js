@@ -1,4 +1,12 @@
 
+
+export const BASE_SPRITE_PATH = 'assets/img/';
+export const QUALITY_OPTIONS = ['low','high'];
+export const HIGH_QUALITY_SPRITE_PATH = BASE_SPRITE_PATH+'quality_high/';
+export const LOW_QUALITY_SPRITE_PATH = BASE_SPRITE_PATH+'quality_low/';
+export const LOW_QUALITY_STAGE_MAX = 600;
+
+
 export const NUM_OF_REELS = 3;
 export const NUM_OF_ROWS = 3;
 // NUM_OF_ROWS is the actual number of rows, however we need an extra symbol to cover when we are between 2 positions

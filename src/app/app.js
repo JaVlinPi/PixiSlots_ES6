@@ -4,7 +4,10 @@ import SlotController from './slots/slotsController';
 import { getResult } from './slots/utils';
 import StakeSelector from './slots/stakeSelector';
 import ValueDisplay from './slots/valueDisplay';
-import { START_FUNDS, SOUNDS } from './constants';
+import { START_FUNDS, SOUNDS, LOW_QUALITY_STAGE_MAX } from './constants';
+import SpriteLoader from './slots/spriteLoader';
+import CustomSprite from './slots/customSprite';
+import Reel from './slots/reel';
 
 let funds = START_FUNDS;
 
@@ -19,6 +22,13 @@ let app = new PIXI.Application({
   resolution: 1       // default: 1
 });
 window.app = app;
+
+function setQuality(quality) {
+  spriteLoader.switchQuality(quality)
+  .then(()=>{
+    Reel.redraw();
+  });
+}
 
 function handleWindowSize() {
   if ( window.innerWidth > window.innerHeight ) {
@@ -37,30 +47,35 @@ function handleWindowSize() {
     app.stage.width = 600;
     app.stage.height = 900;
   }
+  if ( Math.min(window.innerWidth,window.innerHeight) < LOW_QUALITY_STAGE_MAX &&
+       CustomSprite.quality() == 'high' ) {
+    setQuality('low');
+  }
+  else if ( Math.min(window.innerWidth,window.innerHeight) >= LOW_QUALITY_STAGE_MAX &&
+            CustomSprite.quality() != 'high' ) {
+    setQuality('high');
+  }
 }
 window.addEventListener("resize", handleWindowSize);
 
 //Add the canvas that Pixi automatically created for you to the HTML document
 document.body.appendChild(app.view);
 
-const resourceList = {
-  apricot: 'assets/img/slot/apricot.png',
-  banana: 'assets/img/slot/banana.png',
-  coconut: 'assets/img/slot/coconut.png',
-  pineapple: 'assets/img/slot/pineapple.png',
-  wild: 'assets/img/slot/wild.png',
-  reelBack: 'assets/img/table/reelback.png',
-  reelFront: 'assets/img/table/reelfront.png',
-  spinButton: 'assets/img/spin button/basic.png',
-  box: 'assets/img/box.png',
-  box2: 'assets/img/box2.png',
-}
+let initQuality = Math.min(window.innerWidth,window.innerHeight) < LOW_QUALITY_STAGE_MAX ? 'low' : 'high';
+const spriteLoader = new SpriteLoader();
+spriteLoader.loadSprites({
+  apricot: 'slot/apricot.png',
+  banana: 'slot/banana.png',
+  coconut: 'slot/coconut.png',
+  pineapple: 'slot/pineapple.png',
+  wild: 'slot/wild.png',
+  reelBack: 'table/reelback.png',
+  reelFront: 'table/reelfront.png',
+  spinButton: 'spin button/basic.png',
+  box: 'box.png',
+  box2: 'box2.png',
+},initQuality).then(setup);
 
-//load an image and run the `setup` function when it's done
-for ( let a in resourceList ) {
-  PIXI.Loader.shared.add(a, resourceList[a]);
-}
-PIXI.Loader.shared.load(setup);
 
 //This `setup` function will run when the image has loaded
 let spinText;
@@ -68,11 +83,11 @@ function setup() {
   
   app.stage.sortableChildren = true;
 
-  let reelBack = new PIXI.Sprite(resources.reelBack.texture);
+  let reelBack = new CustomSprite('reelBack');
   app.stage.addChild(reelBack);
   reelBack.zIndex = -1;
 
-  let reelFront = new PIXI.Sprite(resources.reelFront.texture);
+  let reelFront = new CustomSprite('reelFront');
   app.stage.addChild(reelFront);
   reelFront.zIndex = 1;
 
@@ -93,7 +108,7 @@ function setup() {
   text.x = 75;
   text.y = 37;
   text.zIndex = 2;
-  let spinButton = new PIXI.Sprite(resources.spinButton.texture);
+  let spinButton = new CustomSprite('spinButton');
   spinButtonContainer.addChild(spinButton);
   spinButtonContainer.zIndex = 2;
   spinButtonContainer.interactive = true;

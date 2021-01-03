@@ -1,13 +1,14 @@
 
 import * as PIXI from 'pixi.js';
 import { STAKES } from '../constants';
+import CustomSprite from './customSprite';
 
 export default class StakeButton extends PIXI.Container {
 
     constructor(index,callback) {
         super();
 
-        let box = new PIXI.Sprite(resources.box2.texture);
+        let box = new CustomSprite('box2');
         this.addChild(box);
         
         let valueText = new PIXI.Text(STAKES[index],{

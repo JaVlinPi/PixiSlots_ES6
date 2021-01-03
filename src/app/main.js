@@ -11,4 +11,4 @@ import 'imports-loader?jQuery=jquery!jquery-color/jquery.color.js'
 
 require.ensure([], ()=>{
   require('./app');
-})
+});

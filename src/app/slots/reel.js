@@ -1,14 +1,25 @@
 
 import * as PIXI from 'pixi.js';
 import { VISIBLE_ROWS } from '../constants';
+import CustomSprite from './customSprite';
 
 // fade vars
 let fadeFilter = new PIXI.filters.ColorMatrixFilter();
 fadeFilter.desaturate();
 
+let reelList = [];
+
 export default class Reel {
 
+    static redraw() {
+        for ( var i = 0; i < reelList.length; i++ ) {
+            reelList[i].redraw();
+        }
+    }
+
     constructor(options) {
+
+        reelList.push(this);
 
         this.display = this.display.bind(this);
         this.fade = this.fade.bind(this);
@@ -43,11 +54,18 @@ export default class Reel {
     }
 
     display (symbols,offset) {
+        this.currentSymbols = symbols;
+        this.currentOffset = offset;
         let offsetIndex = Math.floor(offset);
+        let quality = CustomSprite.quality();
         for ( var i = 0; i < Math.min(this.symbols.length,this.length); i++ ) {
-            this.symbols[i].texture = PIXI.utils.TextureCache[symbols[i+offsetIndex]];
+            this.symbols[i].texture = PIXI.utils.TextureCache[symbols[i+offsetIndex]+'_'+quality];
             this.symbols[i].y = this.position.y + (i*this.symbolHeight) - ((offset%1)*this.symbolHeight);
         }
+    }
+
+    redraw() {
+        this.display(this.currentSymbols,this.currentOffset);
     }
 
     fade() {
